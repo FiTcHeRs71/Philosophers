@@ -1,30 +1,47 @@
 
 #include "includes/philo.h"
 
-void	*increment(void *test)
+void	*increment(void *arg)
 {
-	while ((long long)test < 100)
+	t_data *data = (t_data *)arg;
+
+	while (1)
 	{
-		printf("%lli..", (long long)test);
-		test++;
+		pthread_mutex_lock(data->mutex);
+		if (*(data->value) >= 1000000)
+		{
+			pthread_mutex_unlock(data->mutex);
+			break;
+		}
+		(*(data->value))++;
+		pthread_mutex_unlock(data->mutex);
 	}
-	return (test);
+	return (NULL);
 }
 
-int main(void)
+int	main(void)
 {
-	pthread_t thread1;
-	pthread_t thread2;
-	void	*test = 0;
-	int v;
-	int u;
+	pthread_t		thread1;
+	pthread_t		thread2;
+	pthread_mutex_t	locker;
+	int				test;
+	t_data			data;
 
-	v = pthread_create(&thread1, NULL, increment, test);
-	u = pthread_create(&thread2, NULL, increment, test);
+	test = 0;
+	pthread_mutex_init(&locker, NULL);
+
+	data.value = &test;
+	data.mutex = &locker;
+
+	pthread_create(&thread1, NULL, &increment, &data);
+	pthread_create(&thread2, NULL, &increment, &data);
+
 	pthread_join(thread1, NULL);
 	pthread_join(thread2, NULL);
-	printf("test : %lli\n", (long long)test);
-	printf("retour de create 1 %i\n", v);
-	printf("retour de create 2 %i\n", u);
+
+	pthread_mutex_destroy(&locker);
+
+	printf("test : %d\n", test);
+
 	return (0);
 }
