@@ -5,17 +5,12 @@ void	*increment(void *arg)
 {
 	t_data *data = (t_data *)arg;
 
-	while (1)
+	pthread_mutex_lock(data->mutex);
+	while ((*(data->value)) < 2000000)
 	{
-		pthread_mutex_lock(data->mutex);
-		if (*(data->value) >= 1000000)
-		{
-			pthread_mutex_unlock(data->mutex);
-			break;
-		}
 		(*(data->value))++;
-		pthread_mutex_unlock(data->mutex);
 	}
+	pthread_mutex_unlock(data->mutex);
 	return (NULL);
 }
 
@@ -24,14 +19,19 @@ int	main(void)
 	pthread_t		thread1;
 	pthread_t		thread2;
 	pthread_mutex_t	locker;
-	int				test;
-	t_data			data;
+	int				i;
+	t_data			**data;
 
-	test = 0;
+	i = 0;
 	pthread_mutex_init(&locker, NULL);
-
-	data.value = &test;
-	data.mutex = &locker;
+	
+	data[0] = calloc(1 , sizeof(t_data));
+	data[1] = calloc(1 , sizeof(t_data));
+	write(1, "s\n", 2);
+	data[0]->value = &i;
+	data[0]->mutex = &locker;
+	data[1]->value = &i;
+	data[1]->mutex = &locker;
 
 	pthread_create(&thread1, NULL, &increment, &data);
 	pthread_create(&thread2, NULL, &increment, &data);
@@ -41,7 +41,7 @@ int	main(void)
 
 	pthread_mutex_destroy(&locker);
 
-	printf("test : %d\n", test);
+	printf("i : %d\n", i);
 
 	return (0);
 }
