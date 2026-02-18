@@ -7,12 +7,11 @@
 # include <unistd.h>
 # include <pthread.h>
 
-typedef struct	s_data
-{
-	int	*value;
-	pthread_mutex_t *mutex;
-}				t_data;
+# include "philo_struct.h"
 
+# define INSTRUCTION "Wrong number of argument | Usage : number_of_philosophers, time_to_die time_to_eat, time_to_sleep, number_of_times_each_philosopher_must_eat." 
+# define MALLOC "Memory allocution failed, exit."
+void	ft_error(char *msg, t_data *data);
 
 
 
