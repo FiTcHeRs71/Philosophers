@@ -22,7 +22,7 @@ int	ft_atoi(const char *str);
 int	ft_isdigit(int c);
 
 /* init_philo.c */
-void	init_philo(int argc, char **args, t_philo **philo);
+void	init_philo(char **args, t_philo **philo, t_data *data);
 
 
 /*=============== Utils ===============*/

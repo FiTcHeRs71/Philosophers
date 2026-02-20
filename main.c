@@ -5,11 +5,12 @@
 int main(int argc, char **argv)
 {
 	t_philo **philo;
+	t_data	data;
 
-	philo = malloc(argc - 1 * sizeof(t_philo **));
-	if(argc == 5)
+	philo = malloc(argc - 1 * sizeof(t_philo *));
+	if(argc == 6)
 	{
-		init_philo(argc, argv, philo);
+		init_philo(argv, philo, &data);
 		printf("check OK");
 	}
 	else
