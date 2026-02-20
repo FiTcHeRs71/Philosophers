@@ -10,7 +10,7 @@ OBJDIR = objs
 SRCS_MAIN = main.c
 
 SRCS_UTILS = $(addprefix $(SRCDIR)/utils/, \
-    clear.c)
+    utils.c clear.c)
 
 SRCS_PARSE = $(addprefix $(SRCDIR)/parse/, \
     init_philo.c init_utils.c)
