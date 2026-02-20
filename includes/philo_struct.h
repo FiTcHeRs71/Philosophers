@@ -24,7 +24,8 @@ typedef struct	s_data
 	int				number_of_eat;
 	int				number_of_philosophers;
 	long long		start_time;
-	pthread_mutex_t	*mutex_global_printer;
+	pthread_mutex_t	mutex_global_printer;
+	pthread_mutex_t *forks;
 }				t_data;
 
 typedef struct  s_philo

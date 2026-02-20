@@ -1,36 +1,40 @@
 
 #include "../../includes/philo.h"
 
-static void	init_philosophers(t_philo **philo, int nb_philo)
+static void	init_philosophers(t_philo *philo, t_data *data, int nb_philo)
 {
 	int	i;
 
 	i = 0;
-	*philo = malloc(sizeof(t_philo) * nb_philo);
 	while (i < nb_philo)
 	{
-		memset(&(*philo)[i], 0, sizeof(t_philo));
-		(*philo)[i].id_philo = i + 1;
+		philo[i].data = data;
 		i++;
 	}
 }
 
 static void	init_data(t_data *data, char **args)
 {
-	struct timeval	*current_time;
+	struct timeval	current_time;
+	int	i;
 
-	current_time = NULL;
+	i = 0;
 	data->number_of_philosophers = ft_atoi(args[1]);
 	data->time_to_die = ft_atoi(args[2]);
 	data->time_to_eat = ft_atoi(args[3]);
 	data->time_to_sleep = ft_atoi(args[4]);
 	data->number_of_eat = ft_atoi(args[5]);
-	data->start_time = gettimeofday(current_time, NULL);
-	pthread_mutex_init(data->mutex_global_printer, NULL);
-
+	data->start_time = gettimeofday(&current_time, NULL);
+	pthread_mutex_init(&data->mutex_global_printer, NULL);
+	while (i < data->number_of_philosophers)
+	{
+		pthread_mutex_init(&data->forks[i], NULL);
+		i++;
+	}
+	
 }
 
-static void	checker_args(char **args, t_philo **philo)
+static void	checker_args(char **args, t_philo *philo)
 {
 	size_t	i;
 	size_t	j;
@@ -49,11 +53,11 @@ static void	checker_args(char **args, t_philo **philo)
 	}
 }
 
-void	init_philo(char **args, t_philo **philo, t_data *data)
+void	init_philo(char **args, t_philo *philo, t_data *data)
 {
 	checker_args(args, philo);
 	init_data(data , args);
-	init_philosophers(philo, data->number_of_philosophers);
+	init_philosophers(philo, data, data->number_of_philosophers);
 }
 
 /*

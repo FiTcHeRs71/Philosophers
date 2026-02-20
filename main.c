@@ -4,7 +4,7 @@
 
 int main(int argc, char **argv)
 {
-	t_philo **philo;
+	t_philo *philo;
 	t_data	data;
 
 	philo = malloc(argc - 1 * sizeof(t_philo *));
