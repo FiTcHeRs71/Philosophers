@@ -4,15 +4,17 @@
 
 int main(int argc, char **argv)
 {
-	t_data	data;
-	(void)argv;
+	t_philo **philo;
+
+	philo = malloc(argc - 1 * sizeof(t_philo **));
 	if(argc == 5)
 	{
-
+		init_philo(argc, argv, philo);
+		printf("check OK");
 	}
 	else
 	{
-		ft_error(MALLOC, &data);
+		ft_error(INSTRUCTION, philo);
 	}
 	return (0);
 }

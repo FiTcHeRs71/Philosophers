@@ -1,8 +1,9 @@
 
 #include "../../includes/philo.h"
 
-void	ft_error(char *msg, t_data *data)
+void	ft_error(char *msg, t_philo **philo)
 {
 	printf("%s\n", msg);
-	data->id = 0;
+	(void)philo;
+	exit(EXIT_FAILURE);
 }
