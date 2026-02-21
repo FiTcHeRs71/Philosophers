@@ -27,7 +27,7 @@ int		ft_isdigit(int c);
 bool	check_arg_is_digit(char *str);
 
 /* init_philo.c */
-void	init_philo(char **args, t_philo **philo, t_data *data);
+void	init_philo(char **args, t_philo *philo, t_data *data);
 
 
 /*=============== Utils ===============*/
@@ -36,7 +36,7 @@ void	init_philo(char **args, t_philo **philo, t_data *data);
 void	*ft_calloc(size_t count, size_t size);
 
 /* clear.c */
-void	ft_error(char *msg, t_philo **philo);
+void	ft_error(char *msg, t_philo *philo);
 
 
 
