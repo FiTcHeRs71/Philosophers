@@ -27,13 +27,17 @@ static void	init_philosophers(t_philo **philo, t_data *data, int nb_philo)
 	}
 }
 
-static void	init_data(t_data *data, char **args)
+static void	init_data(t_data *data, t_philo **philo, char **args)
 {
 	struct timeval	current_time;
 	int	i;
 
 	i = 0;
 	data->number_of_philosophers = ft_atoi(args[1]);
+	if (data->number_of_philosophers <= 1)
+	{
+		ft_error(INVALID_NB_PHILO, philo);
+	}
 	data->time_to_die = ft_atoi(args[2]);
 	data->time_to_eat = ft_atoi(args[3]);
 	data->time_to_sleep = ft_atoi(args[4]);
@@ -64,7 +68,7 @@ static void	checker_args(char **args, t_philo **philo)
 void	init_philo(char **args, t_philo **philo, t_data *data)
 {
 	checker_args(args, philo);
-	init_data(data , args);
+	init_data(data , philo, args);
 	init_philosophers(philo, data, data->number_of_philosophers);
 }
 

@@ -16,6 +16,7 @@
 # define INSTRUCTION "Wrong number of argument | Usage : number_of_philosophers, time_to_die time_to_eat, time_to_sleep, number_of_times_each_philosopher_must_eat." 
 # define MALLOC "Memory allocution failed, exit."
 # define INVALID_ARGS "Invalid argument, argument must contains only digit between INT MIN and INT MAX."
+# define INVALID_NB_PHILO "Invalid number of philo"
 
 /*=============== Parse ===============*/
 
