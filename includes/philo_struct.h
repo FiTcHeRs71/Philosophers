@@ -37,7 +37,7 @@ typedef struct  s_philo
 	int				is_alive;
 	pthread_mutex_t *mutex_left_fork;
 	pthread_mutex_t *mutex_right_fork;
-	pthread_mutex_t *philo;
+	pthread_mutex_t philo;
 	t_data			*data;
 }					t_philo;
 

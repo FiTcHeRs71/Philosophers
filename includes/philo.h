@@ -9,17 +9,20 @@
 # include <string.h>
 # include <sys/time.h>
 # include <stdint.h>
+# include <stdbool.h>
+# include <limits.h>
 # include "philo_struct.h"
 
 # define INSTRUCTION "Wrong number of argument | Usage : number_of_philosophers, time_to_die time_to_eat, time_to_sleep, number_of_times_each_philosopher_must_eat." 
 # define MALLOC "Memory allocution failed, exit."
-# define INVALID_ARGS "Invalid argument, argument must contains only digit."
+# define INVALID_ARGS "Invalid argument, argument must contains only digit between INT MIN and INT MAX."
 
 /*=============== Parse ===============*/
 
 /* init_utils.c */
-int	ft_atoi(const char *str);
-int	ft_isdigit(int c);
+int		ft_atoi(const char *str);
+int		ft_isdigit(int c);
+bool	check_arg_is_digit(char *str);
 
 /* init_philo.c */
 void	init_philo(char **args, t_philo **philo, t_data *data);

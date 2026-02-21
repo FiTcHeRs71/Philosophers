@@ -12,7 +12,17 @@ static void	init_philosophers(t_philo **philo, t_data *data, int nb_philo)
 		philo[i]->data = data;
 		philo[i]->id_philo = i + 1;
 		philo[i]->status = -1;
-		pthread_mutex_init(philo[i]->philo, NULL);
+		pthread_mutex_init(&philo[i]->philo, NULL);
+		if (i == 0)
+		{
+			philo[i]->mutex_left_fork = &data->forks[nb_philo];
+			philo[i]->mutex_right_fork = &data->forks[i];
+		}
+		else
+		{		
+			philo[i]->mutex_left_fork = &data->forks[i - 1];
+			philo[i]->mutex_right_fork = &data->forks[i];
+		}
 		i++;
 	}
 }
@@ -41,18 +51,12 @@ static void	init_data(t_data *data, char **args)
 static void	checker_args(char **args, t_philo **philo)
 {
 	size_t	i;
-	size_t	j;
 
 	i = 1;
 	while (args[i])
 	{
-		j = 0;
-		while (args[i][j])
-		{
-			if (ft_isdigit(args[i][j]) == 0)
+		if (!check_arg_is_digit(args[i]))
 				ft_error(INVALID_ARGS, philo);
-			j++;
-		}
 		i++;
 	}
 }
