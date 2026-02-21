@@ -15,8 +15,11 @@ SRCS_UTILS = $(addprefix $(SRCDIR)/utils/, \
 SRCS_PARSE = $(addprefix $(SRCDIR)/parse/, \
     init_philo.c init_utils.c)
 
+SRCS_SIMU = $(addprefix $(SRCDIR)/simulation/, \
+    simulation.c)
+
 # Combine all sources
-SRCS = $(SRCS_MAIN) $(SRCS_UTILS) $(SRCS_PARSE)
+SRCS = $(SRCS_MAIN) $(SRCS_UTILS) $(SRCS_PARSE) $(SRCS_SIMU)
 
 # Object files (permet de garder l'arborescence dans le dossier objs/)
 OBJS = $(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))

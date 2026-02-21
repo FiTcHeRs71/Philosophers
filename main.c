@@ -7,15 +7,15 @@ int main(int argc, char **argv)
 	t_philo	*philo;
 	t_data	data;
 
-	philo = ft_calloc(ft_atoi(argv[1]), sizeof(t_philo));
 	if(argc == 6)
 	{
+		philo = ft_calloc(ft_atoi(argv[1]), sizeof(t_philo));
 		init_philo(argv, philo, &data);
-		printf("check OK");
+		start_simulation(&data, philo);
 	}
 	else
 	{
-		ft_error(INSTRUCTION, philo);
+		printf("Wrong number of argument | Usage : number_of_philosophers, time_to_die time_to_eat, time_to_sleep, number_of_times_each_philosopher_must_eat.\n");
 	}
 	return (0);
 }
