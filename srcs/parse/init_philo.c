@@ -6,6 +6,7 @@ static void	init_philosophers(t_philo **philo, t_data *data, int nb_philo)
 	int	i;
 
 	i = 0;
+	philo = ft_calloc(data->number_of_philosophers, sizeof(t_philo **));
 	while (i < nb_philo)
 	{
 		philo[i] = ft_calloc(1, sizeof(t_philo));
@@ -13,16 +14,8 @@ static void	init_philosophers(t_philo **philo, t_data *data, int nb_philo)
 		philo[i]->id_philo = i + 1;
 		philo[i]->status = -1;
 		pthread_mutex_init(&philo[i]->philo, NULL);
-		if (i == 0)
-		{
-			philo[i]->mutex_left_fork = &data->forks[nb_philo];
-			philo[i]->mutex_right_fork = &data->forks[i];
-		}
-		else
-		{		
-			philo[i]->mutex_left_fork = &data->forks[i - 1];
-			philo[i]->mutex_right_fork = &data->forks[i];
-		}
+		philo[i]->mutex_left_fork = &data->forks[i];
+		philo[i]->mutex_right_fork = &data->forks[(i + 1) % data->number_of_philosophers];
 		i++;
 	}
 }
@@ -42,14 +35,16 @@ static void	init_data(t_data *data, t_philo **philo, char **args)
 	data->time_to_eat = ft_atoi(args[3]);
 	data->time_to_sleep = ft_atoi(args[4]);
 	data->number_of_eat = ft_atoi(args[5]);
-	data->start_time = gettimeofday(&current_time, NULL);
+	if (gettimeofday(&current_time, NULL) == -1)
+		ft_error(TIME_SET, philo);
+	data->start_time = (current_time.tv_sec * 1000) + (current_time.tv_usec / 1000);
 	pthread_mutex_init(&data->mutex_global_printer, NULL);
+	data->forks = ft_calloc(data->number_of_philosophers, sizeof(&data->forks));
 	while (i < data->number_of_philosophers)
 	{
 		pthread_mutex_init(&data->forks[i], NULL);
 		i++;
 	}
-	
 }
 
 static void	checker_args(char **args, t_philo **philo)

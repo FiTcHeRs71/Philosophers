@@ -17,6 +17,7 @@
 # define MALLOC "Memory allocution failed, exit."
 # define INVALID_ARGS "Invalid argument, argument must contains only digit between INT MIN and INT MAX."
 # define INVALID_NB_PHILO "Invalid number of philo"
+# define TIME_SET "Unable to get and set time start"
 
 /*=============== Parse ===============*/
 

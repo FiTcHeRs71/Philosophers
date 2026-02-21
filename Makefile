@@ -65,7 +65,7 @@ run: all
 
 valgrind: all
 	@echo "$(YELLOW)🔍 Running valgrind (memory leak check)...$(RESET)"
-	@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes ./$(NAME)
+	@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes ./$(NAME) 5 800 200 200 5
 
 helgrind: all
 	@echo "$(YELLOW)🧵 Running helgrind (thread error detector)...$(RESET)"
