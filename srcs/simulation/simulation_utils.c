@@ -12,7 +12,7 @@ void	ft_usleep(int time_in_ms)
 		time_in_ms = time_in_ms % 10;
 		usleep(time_in_ms);
 	}*/
-	usleep(time_in_ms);
+	usleep(time_in_ms * 1000);
 }
 
 long long	get_current_time(t_philo *philo)
@@ -32,6 +32,6 @@ void	print_status(t_philo *philo, char *status)
 
 	time_stamp = get_current_time(philo) - philo->data->start_time;
 	pthread_mutex_lock(&philo->data->mutex_global_printer);
-	printf("%lli %d %s!\n",time_stamp, philo->id_philo, status);
+	printf("%lli %d %s\n",time_stamp, philo->id_philo, status);
 	pthread_mutex_unlock(&philo->data->mutex_global_printer);
 }
