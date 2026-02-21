@@ -5,6 +5,7 @@ static void	*routine(void *arg)
 {
 	t_philo *philo = (t_philo *)arg;
 	printf("Philosophe %d est à table !\n", philo->id_philo);
+	print_status(philo, "--\n");
 	return(NULL);
 }
 
@@ -16,6 +17,12 @@ void	start_simulation(t_data *data, t_philo *philo)
 	while (i < data->number_of_philosophers)
 	{
 		pthread_create(&philo[i].thread_id, NULL, &routine, &philo[i]);
+		usleep(200);
+		i++;
+	}
+	i = 0;
+	while (i < data->number_of_philosophers)
+	{
 		pthread_join(philo[i].thread_id, NULL);
 		i++;
 	}

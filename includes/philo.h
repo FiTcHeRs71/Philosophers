@@ -42,4 +42,7 @@ void	ft_error(char *msg, t_philo *philo);
 /* simulation.c*/
 void	start_simulation(t_data *data, t_philo *philo);
 
+/* simulation_utils.c*/
+void	print_status(t_philo *philo, char *status);
+
 #endif
