@@ -1,11 +1,34 @@
 
 #include "../../includes/philo.h"
 
+static void update_meat_philo(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->philo);
+	philo->meal_counter++;
+	philo->last_meat = get_current_time(philo);
+	pthread_mutex_unlock(&philo->philo);
+}
+
 static void	*routine(void *arg)
 {
 	t_philo *philo = (t_philo *)arg;
-	printf("Philosophe %d est à table !\n", philo->id_philo);
-	print_status(philo, "--\n");
+	if (philo->id_philo % 2 == 0)
+		usleep(200);
+	while (1)
+	{
+		pthread_mutex_lock(philo->mutex_left_fork);
+		print_status(philo, "has taken a fork");
+		pthread_mutex_lock(philo->mutex_right_fork);
+		print_status(philo, "has taken a fork");
+		print_status(philo, "is eating");
+		update_meat_philo(philo);
+		ft_usleep(philo->data->time_to_eat);
+		pthread_mutex_unlock(philo->mutex_left_fork);
+		pthread_mutex_unlock(philo->mutex_right_fork);
+		print_status(philo, "is sleeping");
+		ft_usleep(philo->data->time_to_sleep);
+		print_status(philo, "is thinking");
+	}
 	return(NULL);
 }
 
@@ -17,7 +40,6 @@ void	start_simulation(t_data *data, t_philo *philo)
 	while (i < data->number_of_philosophers)
 	{
 		pthread_create(&philo[i].thread_id, NULL, &routine, &philo[i]);
-		usleep(200);
 		i++;
 	}
 	i = 0;

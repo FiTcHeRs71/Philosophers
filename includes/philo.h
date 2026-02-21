@@ -21,28 +21,31 @@
 /*=============== Parse ===============*/
 
 /* init_utils.c */
-int		ft_atoi(const char *str);
-int		ft_isdigit(int c);
-bool	check_arg_is_digit(char *str);
+int			ft_atoi(const char *str);
+int			ft_isdigit(int c);
+bool		check_arg_is_digit(char *str);
 
 /* init_philo.c */
-void	init_philo(char **args, t_philo *philo, t_data *data);
+void		init_philo(char **args, t_philo *philo, t_data *data);
 
 
 /*=============== Utils ===============*/
 
 /* utils.c */
-void	*ft_calloc(size_t count, size_t size);
+void		*ft_calloc(size_t count, size_t size);
 
 /* clear.c */
-void	ft_error(char *msg, t_philo *philo);
+void		ft_error(char *msg, t_philo *philo);
 
 /*=============== Simulation ===============*/
 
 /* simulation.c*/
-void	start_simulation(t_data *data, t_philo *philo);
+void		start_simulation(t_data *data, t_philo *philo);
 
 /* simulation_utils.c*/
-void	print_status(t_philo *philo, char *status);
+void		print_status(t_philo *philo, char *status);
+void		ft_usleep(int time_in_ms);
+long long	get_current_time(t_philo *philo);
+
 
 #endif

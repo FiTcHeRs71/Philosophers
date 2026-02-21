@@ -45,7 +45,7 @@ bool	check_arg_is_digit(char *str)
 	}
 	return (true);
 }
-
+// chekcer les calloc avec ft_error
 int	ft_atoi(const char *str)
 {
 	int	ngps;
