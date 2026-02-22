@@ -1,11 +1,21 @@
 
 #include "../../includes/philo.h"
 
+int	check_simulation_end(t_data *data)
+{
+	int	status;
+
+	pthread_mutex_lock(&data->mutex_end);
+	status = data->end_checker;
+	pthread_mutex_unlock(&data->mutex_end);
+	return (status);
+}
+
 void	ft_usleep(int time_in_ms)
 {
-	int	temp;
+	//int	temp;
 
-	temp = -1;
+	//temp = -1;
 	/*while (temp != 0)
 	{
 		temp = time_in_ms / 10;

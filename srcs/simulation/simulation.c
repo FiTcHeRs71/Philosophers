@@ -1,7 +1,7 @@
 
 #include "../../includes/philo.h"
 
-static bool	check_number_of_meat(t_philo *philo)
+/*static bool	check_number_of_meat(t_philo *philo)
 {
 	if (philo->meal_counter == philo->data->number_of_eat)
 	{
@@ -32,7 +32,7 @@ static bool	check_dead_philo(t_philo *philo)
 		return (true);
 	}
 	return (false);
-}
+}*/
 
 static void update_meat_philo(t_philo *philo)
 {
@@ -49,7 +49,7 @@ static void	*routine(void *arg)
 		usleep(200);
 	while (1)
 	{
-		if (check_dead_philo(philo) || check_number_of_meat(philo))
+		if (check_simulation_end(philo->data) == 1)
 			break;
 		pthread_mutex_lock(philo->mutex_left_fork);
 		print_status(philo, "has taken a fork");

@@ -46,6 +46,6 @@ void		start_simulation(t_data *data, t_philo *philo);
 void		print_status(t_philo *philo, char *status);
 void		ft_usleep(int time_in_ms);
 long long	get_current_time(t_philo *philo);
-
+int			check_simulation_end(t_data *data);
 
 #endif
