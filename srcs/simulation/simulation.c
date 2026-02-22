@@ -1,38 +1,25 @@
 
 #include "../../includes/philo.h"
 
-/*static bool	check_number_of_meat(t_philo *philo)
+void monitor_routine(t_data *data, t_philo *philo)
 {
-	if (philo->meal_counter == philo->data->number_of_eat)
+	int	i;
+
+	while (true)
 	{
-		print_status(philo, "CHECKER FIN DE REPAS !");
-		return (true);
+		i = 0;
+		while(i < data->number_of_philosophers)
+		{
+			pthread_mutex_lock(&philo[i].philo);
+			if (get_current_time(philo) - philo[i].last_meat > data->time_to_die)
+			{
+				data->end_checker = DEAD;
+			}
+			pthread_mutex_unlock(&philo[i].philo);
+			i++;
+		}
 	}
-	return (false);
 }
-
-
-static bool	check_dead_philo(t_philo *philo)
-{
-	if (philo->last_meat == 0)
-	{
-		if (get_current_time(philo) > philo->data->start_time > philo->data->time_to_die)
-		{
-			print_status(philo, "is dead");
-			return (true);
-		}
-		else 
-		{
-			return (false);
-		}
-	}
-	if (get_current_time(philo) - philo->last_meat > philo->data->time_to_die)
-	{
-		print_status(philo, "is dead");
-		return (true);
-	}
-	return (false);
-}*/
 
 static void update_meat_philo(t_philo *philo)
 {
@@ -50,7 +37,10 @@ static void	*routine(void *arg)
 	while (1)
 	{
 		if (check_simulation_end(philo->data) == 1)
+		{
+			print_status(philo,"died");
 			break;
+		}
 		pthread_mutex_lock(philo->mutex_left_fork);
 		print_status(philo, "has taken a fork");
 		pthread_mutex_lock(philo->mutex_right_fork);
@@ -78,6 +68,7 @@ void	start_simulation(t_data *data, t_philo *philo)
 		i++;
 	}
 	i = 0;
+	monitor_routine(data, philo);
 	while (i < data->number_of_philosophers)
 	{
 		pthread_join(philo[i].thread_id, NULL);

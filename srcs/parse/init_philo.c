@@ -11,6 +11,7 @@ static void	init_philosophers(t_philo *philo, t_data *data, int nb_philo)
 		philo[i].data = data;
 		philo[i].id_philo = i + 1;
 		philo[i].status = -1;
+		philo[i].last_meat = get_current_time(philo);
 		pthread_mutex_init(&philo[i].philo, NULL);
 		philo[i].mutex_left_fork = &data->forks[i];
 		philo[i].mutex_right_fork = &data->forks[(i + 1) % data->number_of_philosophers];
@@ -24,6 +25,7 @@ static void	init_data(t_data *data, t_philo *philo, char **args)
 	int	i;
 
 	i = 0;
+	memset(data, 0,sizeof(t_data));
 	data->number_of_philosophers = ft_atoi(args[1]);
 	if (data->number_of_philosophers <= 1)
 	{
