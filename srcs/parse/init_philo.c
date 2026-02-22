@@ -1,6 +1,21 @@
 
 #include "../../includes/philo.h"
 
+static void	update_args(t_data *data, char **args)
+{
+	data->time_to_die = ft_atoi(args[2]);
+	data->time_to_eat = ft_atoi(args[3]);
+	data->time_to_sleep = ft_atoi(args[4]);
+	if (args[5])
+	{
+		data->number_of_eat = ft_atoi(args[5]);
+	}
+	else
+	{
+		data->number_of_eat = -1;
+	}
+}
+
 static void	init_philosophers(t_philo *philo, t_data *data, int nb_philo)
 {
 	int	i;
@@ -31,10 +46,7 @@ static void	init_data(t_data *data, t_philo *philo, char **args)
 	{
 		ft_error(INVALID_NB_PHILO, philo);
 	}
-	data->time_to_die = ft_atoi(args[2]);
-	data->time_to_eat = ft_atoi(args[3]);
-	data->time_to_sleep = ft_atoi(args[4]);
-	data->number_of_eat = ft_atoi(args[5]);
+	update_args(data, args);
 	if (gettimeofday(&current_time, NULL) == -1)
 		ft_error(TIME_SET, philo);
 	data->start_time = (current_time.tv_sec * 1000) + (current_time.tv_usec / 1000);
@@ -67,19 +79,3 @@ void	init_philo(char **args, t_philo *philo, t_data *data)
 	init_data(data , philo, args);
 	init_philosophers(philo, data, data->number_of_philosophers);
 }
-
-/*
-	while (nb_philo > 0)
-	{
-		(*(philo[nb_philo])) = malloc(1 * sizeof(t_philo *));
-		memset(philo[nb_philo], 0, sizeof(t_philo));
-		philo[nb_philo]->id_philo = nb_philo;
-		philo[nb_philo]->status = -1;
-		philo[nb_philo]->data->start_time = gettimeofday(current_time, NULL);
-		philo[nb_philo]->data->number_of_philosophers = argc - 1;
-		philo[nb_philo]->data->time_to_die = ft_atoi(args[2]);
-		philo[nb_philo]->data->time_to_eat = ft_atoi(args[3]);
-		philo[nb_philo]->data->time_to_sleep = ft_atoi(args[4]);
-		philo[nb_philo]->data->number_of_eat = ft_atoi(args[5]);
-	}
-*/

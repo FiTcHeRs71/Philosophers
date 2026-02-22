@@ -4,22 +4,40 @@
 void monitor_routine(t_data *data, t_philo *philo)
 {
 	int	i;
+	int	all_ate;
 
 	while (true)
 	{
 		i = 0;
+		all_ate = 0;
 		while(i < data->number_of_philosophers)
 		{
 			pthread_mutex_lock(&philo[i].philo);
 			if (get_current_time(philo) - philo[i].last_meat > data->time_to_die)
 			{
+				pthread_mutex_lock(&data->mutex_end);
 				data->end_checker = DEAD;
+				pthread_mutex_unlock(&data->mutex_end);
+				print_status(philo,"died");
+				pthread_mutex_unlock(&philo[i].philo);
+				return ;
 			}
+			if (data->number_of_eat != -1 && philo[i].meal_counter >= data->number_of_eat)
+				all_ate++;
 			pthread_mutex_unlock(&philo[i].philo);
 			i++;
 		}
+		if (data->number_of_eat != -1 && all_ate == data->number_of_philosophers)
+		{
+			pthread_mutex_lock(&data->mutex_end);
+			data->end_checker = 1;
+			pthread_mutex_unlock(&data->mutex_end);
+			return;
+		}
+		usleep(1000);
 	}
 }
+			
 
 static void update_meat_philo(t_philo *philo)
 {
@@ -38,7 +56,6 @@ static void	*routine(void *arg)
 	{
 		if (check_simulation_end(philo->data) == 1)
 		{
-			print_status(philo,"died");
 			break;
 		}
 		pthread_mutex_lock(philo->mutex_left_fork);

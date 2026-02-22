@@ -7,7 +7,7 @@ int main(int argc, char **argv)
 	t_philo	*philo;
 	t_data	data;
 
-	if(argc == 6)
+	if(argc == 6 || argc == 5)
 	{
 		philo = ft_calloc(ft_atoi(argv[1]), sizeof(t_philo));
 		init_philo(argv, philo, &data);
