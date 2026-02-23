@@ -1,7 +1,16 @@
 
 #include "../../includes/philo.h"
 
-void monitor_routine(t_data *data, t_philo *philo)
+static void	death_update(t_data *data, t_philo *philo, int i)
+{
+	pthread_mutex_lock(&data->mutex_end);
+	data->end_checker = DEAD;
+	pthread_mutex_unlock(&data->mutex_end);
+	print_status(philo, "died");
+	pthread_mutex_unlock(&philo[i].philo);
+}
+
+void	monitor_routine(t_data *data, t_philo *philo)
 {
 	int	i;
 	int	all_ate;
@@ -10,36 +19,26 @@ void monitor_routine(t_data *data, t_philo *philo)
 	{
 		i = 0;
 		all_ate = 0;
-		while(i < data->number_of_philosophers)
+		while (i < data->number_of_philosophers)
 		{
 			pthread_mutex_lock(&philo[i].philo);
-			if (get_current_time(philo) - philo[i].last_meat > data->time_to_die)
-			{
-				pthread_mutex_lock(&data->mutex_end);
-				data->end_checker = DEAD;
-				pthread_mutex_unlock(&data->mutex_end);
-				print_status(philo,"died");
-				pthread_mutex_unlock(&philo[i].philo);
-				return ;
-			}
-			if (data->number_of_eat != -1 && philo[i].meal_counter >= data->number_of_eat)
+			if (get_current_time(philo)
+				- philo[i].last_meat > data->time_to_die)
+				return (death_update(data, philo, i));
+			if (data->number_of_eat != -1 && philo[i].meal_counter
+				>= data->number_of_eat)
 				all_ate++;
 			pthread_mutex_unlock(&philo[i].philo);
 			i++;
 		}
-		if (data->number_of_eat != -1 && all_ate == data->number_of_philosophers)
-		{
-			pthread_mutex_lock(&data->mutex_end);
-			data->end_checker = 1;
-			pthread_mutex_unlock(&data->mutex_end);
-			return;
-		}
+		if (data->number_of_eat != -1
+			&& all_ate == data->number_of_philosophers)
+			return (update_end_flag(data));
 		usleep(1000);
 	}
 }
-			
 
-static void update_meat_philo(t_philo *philo)
+static void	update_meat_philo(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->philo);
 	philo->meal_counter++;
@@ -49,14 +48,16 @@ static void update_meat_philo(t_philo *philo)
 
 static void	*routine(void *arg)
 {
-	t_philo *philo = (t_philo *)arg;
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
 	if (philo->id_philo % 2 == 0)
 		usleep(200);
 	while (1)
 	{
 		if (check_simulation_end(philo->data) == 1)
 		{
-			break;
+			break ;
 		}
 		pthread_mutex_lock(philo->mutex_left_fork);
 		print_status(philo, "has taken a fork");
@@ -71,7 +72,7 @@ static void	*routine(void *arg)
 		ft_usleep(philo->data->time_to_sleep);
 		print_status(philo, "is thinking");
 	}
-	return(NULL);
+	return (NULL);
 }
 
 void	start_simulation(t_data *data, t_philo *philo)

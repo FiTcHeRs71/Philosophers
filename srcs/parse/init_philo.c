@@ -29,7 +29,8 @@ static void	init_philosophers(t_philo *philo, t_data *data, int nb_philo)
 		philo[i].last_meat = get_current_time(philo);
 		pthread_mutex_init(&philo[i].philo, NULL);
 		philo[i].mutex_left_fork = &data->forks[i];
-		philo[i].mutex_right_fork = &data->forks[(i + 1) % data->number_of_philosophers];
+		philo[i].mutex_right_fork = &data->forks[(i + 1)
+			% data->number_of_philosophers];
 		i++;
 	}
 }
@@ -37,22 +38,22 @@ static void	init_philosophers(t_philo *philo, t_data *data, int nb_philo)
 static void	init_data(t_data *data, t_philo *philo, char **args)
 {
 	struct timeval	current_time;
-	int	i;
+	int				i;
 
 	i = 0;
-	memset(data, 0,sizeof(t_data));
+	memset(data, 0, sizeof(t_data));
 	data->number_of_philosophers = ft_atoi(args[1]);
 	if (data->number_of_philosophers <= 1)
-	{
 		ft_error(INVALID_NB_PHILO, philo);
-	}
 	update_args(data, args);
 	if (gettimeofday(&current_time, NULL) == -1)
 		ft_error(TIME_SET, philo);
-	data->start_time = (current_time.tv_sec * 1000) + (current_time.tv_usec / 1000);
+	data->start_time = (current_time.tv_sec * 1000) + (current_time.tv_usec
+			/ 1000);
 	pthread_mutex_init(&data->mutex_global_printer, NULL);
 	pthread_mutex_init(&data->mutex_end, NULL);
-	data->forks = ft_calloc(data->number_of_philosophers, sizeof(pthread_mutex_t));
+	data->forks = ft_calloc(data->number_of_philosophers,
+			sizeof(pthread_mutex_t));
 	if (!data->forks)
 		ft_error(MALLOC, philo);
 	while (i < data->number_of_philosophers)
@@ -70,7 +71,7 @@ static void	checker_args(char **args, t_philo *philo)
 	while (args[i])
 	{
 		if (!check_arg_is_digit(args[i]))
-				ft_error(INVALID_ARGS, philo);
+			ft_error(INVALID_ARGS, philo);
 		i++;
 	}
 }
@@ -78,6 +79,6 @@ static void	checker_args(char **args, t_philo *philo)
 void	init_philo(char **args, t_philo *philo, t_data *data)
 {
 	checker_args(args, philo);
-	init_data(data , philo, args);
+	init_data(data, philo, args);
 	init_philosophers(philo, data, data->number_of_philosophers);
 }

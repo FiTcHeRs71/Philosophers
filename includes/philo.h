@@ -2,19 +2,20 @@
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
+# include <limits.h>
 # include <pthread.h>
+# include <stdbool.h>
+# include <stdint.h>
+# include <stdio.h>
+# include <stdlib.h>
 # include <string.h>
 # include <sys/time.h>
-# include <stdint.h>
-# include <stdbool.h>
-# include <limits.h>
+# include <unistd.h>
+
 # include "philo_struct.h"
 
 # define MALLOC "Memory allocution failed, exit."
-# define INVALID_ARGS "Invalid argument, argument must contains only digit between INT MIN and INT MAX."
+# define INVALID_ARGS "Invalid argument,only digit between INT MIN and INT MAX."
 # define INVALID_NB_PHILO "Invalid number of philo"
 # define TIME_SET "Unable to get and set time start"
 
@@ -35,7 +36,7 @@ void		*ft_calloc(size_t count, size_t size);
 
 /* clear.c */
 void		ft_error(char *msg, t_philo *philo);
-void	clean_all(t_philo *philo, t_data *data);
+void		clean_all(t_philo *philo, t_data *data);
 
 /*=============== Simulation ===============*/
 
@@ -47,5 +48,6 @@ void		print_status(t_philo *philo, char *status);
 void		ft_usleep(int time_in_ms);
 long long	get_current_time(t_philo *philo);
 int			check_simulation_end(t_data *data);
+void		update_end_flag(t_data *data);
 
 #endif

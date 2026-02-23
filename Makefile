@@ -21,7 +21,7 @@ SRCS_SIMU = $(addprefix $(SRCDIR)/simulation/, \
 # Combine all sources
 SRCS = $(SRCS_MAIN) $(SRCS_UTILS) $(SRCS_PARSE) $(SRCS_SIMU)
 
-# Object files (permet de garder l'arborescence dans le dossier objs/)
+
 OBJS = $(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))
 
 # Compiler and flags
@@ -68,7 +68,7 @@ run: all
 
 valgrind: all
 	@echo "$(YELLOW)🔍 Running valgrind (memory leak check)...$(RESET)"
-	@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes ./$(NAME) 5 800 200 200 1
+	@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes ./$(NAME) 5 300 200 200 5
 
 helgrind: all
 	@echo "$(YELLOW)🧵 Running helgrind (thread error detector)...$(RESET)"

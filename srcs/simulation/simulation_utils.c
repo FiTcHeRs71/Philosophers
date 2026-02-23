@@ -1,6 +1,13 @@
 
 #include "../../includes/philo.h"
 
+void	update_end_flag(t_data *data)
+{
+	pthread_mutex_lock(&data->mutex_end);
+	data->end_checker = 1;
+	pthread_mutex_unlock(&data->mutex_end);
+}
+
 int	check_simulation_end(t_data *data)
 {
 	int	status;
@@ -13,15 +20,6 @@ int	check_simulation_end(t_data *data)
 
 void	ft_usleep(int time_in_ms)
 {
-	//int	temp;
-
-	//temp = -1;
-	/*while (temp != 0)
-	{
-		temp = time_in_ms / 10;
-		time_in_ms = time_in_ms % 10;
-		usleep(time_in_ms);
-	}*/
 	usleep(time_in_ms * 1000);
 }
 
@@ -42,6 +40,6 @@ void	print_status(t_philo *philo, char *status)
 
 	time_stamp = get_current_time(philo) - philo->data->start_time;
 	pthread_mutex_lock(&philo->data->mutex_global_printer);
-	printf("%lli %d %s\n",time_stamp, philo->id_philo, status);
+	printf("%lli %d %s\n", time_stamp, philo->id_philo, status);
 	pthread_mutex_unlock(&philo->data->mutex_global_printer);
 }

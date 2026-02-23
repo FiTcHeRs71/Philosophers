@@ -1,8 +1,7 @@
 
 #include "../../includes/philo.h"
 
-
-static void clean_philo(t_philo *philo)
+static void	clean_philo(t_philo *philo)
 {
 	int	i;
 
@@ -18,13 +17,13 @@ static void clean_philo(t_philo *philo)
 	if (philo->data->forks)
 		free(philo->data->forks);
 	if (philo)
-		free (philo);
+		free(philo);
 }
 
-static void clean_data(t_data *data)
+static void	clean_data(t_data *data)
 {
 	if (!data)
-		return;
+		return ;
 	pthread_mutex_destroy(&data->mutex_global_printer);
 	pthread_mutex_destroy(&data->mutex_end);
 }
