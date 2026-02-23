@@ -56,9 +56,7 @@ static void	*routine(void *arg)
 	while (1)
 	{
 		if (check_simulation_end(philo->data) == 1)
-		{
 			break ;
-		}
 		pthread_mutex_lock(philo->mutex_left_fork);
 		print_status(philo, "has taken a fork");
 		pthread_mutex_lock(philo->mutex_right_fork);
