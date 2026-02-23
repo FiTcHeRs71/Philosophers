@@ -38,14 +38,6 @@ void	monitor_routine(t_data *data, t_philo *philo)
 	}
 }
 
-static void	update_meat_philo(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->philo);
-	philo->meal_counter++;
-	philo->last_meat = get_current_time(philo);
-	pthread_mutex_unlock(&philo->philo);
-}
-
 static void	*routine(void *arg)
 {
 	t_philo			*philo;

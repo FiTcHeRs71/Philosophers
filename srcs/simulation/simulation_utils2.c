@@ -1,6 +1,14 @@
 
 #include "../../includes/philo.h"
 
+static void	update_meat_philo(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->philo);
+	philo->meal_counter++;
+	philo->last_meat = get_current_time(philo);
+	pthread_mutex_unlock(&philo->philo);
+}
+
 int	eat_routine(t_philo *philo, pthread_mutex_t *first, pthread_mutex_t *second)
 {
 	pthread_mutex_lock(first);
