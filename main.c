@@ -10,8 +10,11 @@ int main(int argc, char **argv)
 	if(argc == 6 || argc == 5)
 	{
 		philo = ft_calloc(ft_atoi(argv[1]), sizeof(t_philo));
+		if (!philo)
+			ft_error(MALLOC, philo);
 		init_philo(argv, philo, &data);
 		start_simulation(&data, philo);
+		clean_all(philo, &data);
 	}
 	else
 	{

@@ -53,6 +53,8 @@ static void	init_data(t_data *data, t_philo *philo, char **args)
 	pthread_mutex_init(&data->mutex_global_printer, NULL);
 	pthread_mutex_init(&data->mutex_end, NULL);
 	data->forks = ft_calloc(data->number_of_philosophers, sizeof(pthread_mutex_t));
+	if (!data->forks)
+		ft_error(MALLOC, philo);
 	while (i < data->number_of_philosophers)
 	{
 		pthread_mutex_init(&data->forks[i], NULL);
