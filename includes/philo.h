@@ -51,5 +51,6 @@ int			check_simulation_end(t_data *data);
 void		update_end_flag(t_data *data);
 
 /* simulation_utils2.c*/
-void		*handler_one_philo(t_philo *philo);
+int	eat_routine(t_philo *philo, pthread_mutex_t *first, pthread_mutex_t *second);
+
 #endif

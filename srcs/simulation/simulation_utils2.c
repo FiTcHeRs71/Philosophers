@@ -1,7 +1,7 @@
 
 #include "../../includes/philo.h"
 
-static int	eat_routine(t_philo *philo, pthread_mutex_t *first, pthread_mutex_t *second)
+int	eat_routine(t_philo *philo, pthread_mutex_t *first, pthread_mutex_t *second)
 {
 	pthread_mutex_lock(first);
 	print_status(philo, "has taken a fork");
