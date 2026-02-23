@@ -8,6 +8,7 @@ int	main(int argc, char **argv)
 
 	if (argc == 6 || argc == 5)
 	{
+		memset(&data, 0, sizeof(t_data));
 		philo = ft_calloc(ft_atoi(argv[1]), sizeof(t_philo));
 		if (!philo)
 			ft_error(MALLOC, philo);

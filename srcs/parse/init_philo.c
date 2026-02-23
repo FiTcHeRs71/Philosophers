@@ -41,9 +41,8 @@ static void	init_data(t_data *data, t_philo *philo, char **args)
 	int				i;
 
 	i = 0;
-	memset(data, 0, sizeof(t_data));
 	data->number_of_philosophers = ft_atoi(args[1]);
-	if (data->number_of_philosophers <= 1)
+	if (data->number_of_philosophers <= 0)
 		ft_error(INVALID_NB_PHILO, philo);
 	update_args(data, args);
 	if (gettimeofday(&current_time, NULL) == -1)

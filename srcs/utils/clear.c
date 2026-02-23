@@ -6,7 +6,7 @@ static void	clean_philo(t_philo *philo)
 	int	i;
 
 	i = 0;
-	if (!philo)
+	if (!philo || !philo->data)
 		return ;
 	while (i < philo->data->number_of_philosophers)
 	{
