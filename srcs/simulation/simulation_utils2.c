@@ -1,9 +1,22 @@
 
 #include "../../includes/philo.h"
 
-void	*handler_one_philo(t_philo *philo)
+static int	eat_routine(t_philo *philo, pthread_mutex_t *first, pthread_mutex_t *second)
 {
-	ft_usleep(philo->data->time_to_die);
-	pthread_mutex_unlock(philo->mutex_left_fork);
-	return (NULL);
+	pthread_mutex_lock(first);
+	print_status(philo, "has taken a fork");
+	if (philo->data->number_of_philosophers == 1)
+	{
+		ft_usleep(philo->data->time_to_die);
+		pthread_mutex_unlock(first);
+		return (1);
+	}
+	pthread_mutex_lock(second);
+	print_status(philo, "has taken a fork");
+	print_status(philo, "is eating");
+	update_meat_philo(philo);
+	ft_usleep(philo->data->time_to_eat);
+	pthread_mutex_unlock(first);
+	pthread_mutex_unlock(second);
+	return (0);
 }

@@ -10,64 +10,28 @@ static void	death_update(t_data *data, t_philo *philo, int i)
 	pthread_mutex_unlock(&philo[i].philo);
 }
 
-void	monitor_routine(t_data *data, t_philo *philo)
-{
-	int	i;
-	int	all_ate;
-
-	while (true)
-	{
-		i = 0;
-		all_ate = 0;
-		while (i < data->number_of_philosophers)
-		{
-			pthread_mutex_lock(&philo[i].philo);
-			if (get_current_time(philo)
-				- philo[i].last_meat > data->time_to_die)
-				return (death_update(data, philo, i));
-			if (data->number_of_eat != -1 && philo[i].meal_counter
-				>= data->number_of_eat)
-				all_ate++;
-			pthread_mutex_unlock(&philo[i].philo);
-			i++;
-		}
-		if (data->number_of_eat != -1
-			&& all_ate == data->number_of_philosophers)
-			return (update_end_flag(data));
-		usleep(1000);
-	}
-}
-
-static void	update_meat_philo(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->philo);
-	philo->meal_counter++;
-	philo->last_meat = get_current_time(philo);
-	pthread_mutex_unlock(&philo->philo);
-}
-
 static void	*routine(void *arg)
 {
-	t_philo	*philo;
+	t_philo			*philo;
+	pthread_mutex_t	*first;
+	pthread_mutex_t	*second;
 
 	philo = (t_philo *)arg;
+	first = philo->mutex_left_fork;
+	second = philo->mutex_right_fork;
+	if (philo->mutex_left_fork > philo->mutex_right_fork)
+	{
+		first = philo->mutex_right_fork;
+		second = philo->mutex_left_fork;
+	}
 	if (philo->id_philo % 2 == 0)
-		usleep(200);
+		ft_usleep(20);
 	while (1)
 	{
 		if (check_simulation_end(philo->data) == 1)
 			break ;
-		pthread_mutex_lock(philo->mutex_left_fork);
-		print_status(philo, "has taken a fork");
-		if (philo->data->number_of_philosophers == 1)
-			return (handler_one_philo(philo));
-		pthread_mutex_lock(philo->mutex_right_fork);
-		print_status(philo, "has taken a fork");
-		print_status(philo, "is eating");
-		update_meat_philo(philo);
-		ft_usleep(philo->data->time_to_eat);
-		pthread_mutex_unlock(philo->mutex_left_fork);
-		pthread_mutex_unlock(philo->mutex_right_fork);
+		if (eat_routine(philo, first, second) == 1)
+			break ;
 		print_status(philo, "is sleeping");
 		ft_usleep(philo->data->time_to_sleep);
 		print_status(philo, "is thinking");
