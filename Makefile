@@ -16,7 +16,7 @@ SRCS_PARSE = $(addprefix $(SRCDIR)/parse/, \
     init_philo.c init_utils.c)
 
 SRCS_SIMU = $(addprefix $(SRCDIR)/simulation/, \
-    simulation.c simulation_utils.c)
+    simulation.c simulation_utils.c simulation_utils2.c)
 
 # Combine all sources
 SRCS = $(SRCS_MAIN) $(SRCS_UTILS) $(SRCS_PARSE) $(SRCS_SIMU)
@@ -68,11 +68,11 @@ run: all
 
 valgrind: all
 	@echo "$(YELLOW)🔍 Running valgrind (memory leak check)...$(RESET)"
-	@valgrind --leak-check=full --show-leak-kinds=all--track-fds=yes ./$(NAME) 5 300 200 200 5
+	@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes ./$(NAME) 1 300 200 200 5
 
 helgrind: all
 	@echo "$(YELLOW)🧵 Running helgrind (thread error detector)...$(RESET)"
-	@valgrind --tool=helgrind ./$(NAME) 5 300 200 200 5
+	@valgrind --tool=helgrind ./$(NAME) 5 800 200 200 5 > helgrind.log
 
 norm:
 	@echo "$(YELLOW)📋 Checking norminette...$(RESET)"

@@ -59,6 +59,8 @@ static void	*routine(void *arg)
 			break ;
 		pthread_mutex_lock(philo->mutex_left_fork);
 		print_status(philo, "has taken a fork");
+		if (philo->data->number_of_philosophers == 1)
+			return (handler_one_philo(philo));
 		pthread_mutex_lock(philo->mutex_right_fork);
 		print_status(philo, "has taken a fork");
 		print_status(philo, "is eating");

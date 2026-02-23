@@ -50,4 +50,6 @@ long long	get_current_time(t_philo *philo);
 int			check_simulation_end(t_data *data);
 void		update_end_flag(t_data *data);
 
+/* simulation_utils2.c*/
+void		*handler_one_philo(t_philo *philo);
 #endif
