@@ -6,7 +6,7 @@ static void	death_update(t_data *data, t_philo *philo, int i)
 	pthread_mutex_lock(&data->mutex_end);
 	data->end_checker = DEAD;
 	pthread_mutex_unlock(&data->mutex_end);
-	print_status(philo, "died");
+	print_status(&philo[i], "died");
 	pthread_mutex_unlock(&philo[i].philo);
 }
 

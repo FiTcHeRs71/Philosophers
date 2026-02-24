@@ -28,7 +28,7 @@ int	ft_usleep(int milliseconds, t_philo *philo)
 	{
 		pthread_mutex_lock(&philo->data->mutex_end);
 		if (philo->data->end_checker == ALIVE)
-			ft_usleep(100, philo);
+			usleep(1000);
 		else
 		{
 			pthread_mutex_unlock(&philo->data->mutex_end);
