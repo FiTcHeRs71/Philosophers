@@ -29,12 +29,12 @@ int	ft_usleep(int milliseconds, t_philo *philo)
 		pthread_mutex_lock(&philo->data->mutex_end);
 		if (philo->data->end_checker == ALIVE)
 			ft_usleep(100, philo);
-		/*else
+		else
 		{
 			pthread_mutex_unlock(&philo->data->mutex_end);
 			break ;
 		}
-		pthread_mutex_unlock(&philo->data->mutex_end);*/
+		pthread_mutex_unlock(&philo->data->mutex_end);
 	}
 	return (0);
 }

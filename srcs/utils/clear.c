@@ -1,6 +1,22 @@
 
 #include "../../includes/philo.h"
 
+static void	ft_putstr_fd(char *s, int fd)
+{
+	size_t	i;
+
+	if (!s)
+	{
+		return ;
+	}
+	i = 0;
+	while (s[i])
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
+}
+
 static void	clean_philo(t_philo *philo)
 {
 	int	i;
@@ -38,7 +54,7 @@ void	clean_all(t_philo *philo, t_data *data)
 
 void	ft_error(char *msg, t_philo *philo)
 {
-	printf("%s\n", msg);
+	ft_putstr_fd(msg, 2);
 	clean_all(philo, philo->data);
 	exit(EXIT_FAILURE);
 }
