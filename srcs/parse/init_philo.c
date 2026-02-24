@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/24 18:55:33 by fducrot           #+#    #+#             */
-/*   Updated: 2026/02/24 18:56:39 by fducrot          ###   ########.ch       */
+/*   Created: 2026/02/24 19:01:12 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/24 19:01:21 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static void	init_data(t_data *data, t_philo *philo, char **args)
 			/ 1000);
 	pthread_mutex_init(&data->mutex_global_printer, NULL);
 	pthread_mutex_init(&data->mutex_end, NULL);
+	data->flag_global_mutex = 1;
 	data->forks = ft_calloc(data->number_of_philosophers,
 			sizeof(pthread_mutex_t));
 	if (!data->forks)

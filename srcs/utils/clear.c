@@ -6,7 +6,7 @@
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 18:56:50 by fducrot           #+#    #+#             */
-/*   Updated: 2026/02/24 18:57:18 by fducrot          ###   ########.ch       */
+/*   Updated: 2026/02/24 19:00:13 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ static void clean_philo(t_philo *philo, t_data *data)
 	{
 		while (i < data->number_of_philosophers)
 		{
-			if (i <= data->flag_mutex_fork)
+			if (i < data->flag_mutex_fork)
 				pthread_mutex_destroy(&data->forks[i]);
-			if (i <= data->flag_mutex_philo)
+			if (i < data->flag_mutex_philo)
 				pthread_mutex_destroy(&philo[i].philo);
 			i++;
 		}
@@ -53,8 +53,11 @@ static void	clean_data(t_data *data)
 {
 	if (!data)
 		return ;
-	pthread_mutex_destroy(&data->mutex_global_printer);
-	pthread_mutex_destroy(&data->mutex_end);
+	if (data->flag_global_mutex == 1)
+	{
+		pthread_mutex_destroy(&data->mutex_global_printer);
+		pthread_mutex_destroy(&data->mutex_end);
+	}
 }
 
 void	clean_all(t_philo *philo, t_data *data)

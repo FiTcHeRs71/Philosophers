@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/24 18:54:44 by fducrot           #+#    #+#             */
-/*   Updated: 2026/02/24 18:55:07 by fducrot          ###   ########.ch       */
+/*   Created: 2026/02/24 19:00:27 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/24 19:00:31 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_data
 	int				end_checker;
 	int				flag_mutex_philo;
 	int				flag_mutex_fork;
+	int				flag_global_mutex;
 	long long		start_time;
 	pthread_mutex_t	mutex_end;
 	pthread_mutex_t	mutex_global_printer;
