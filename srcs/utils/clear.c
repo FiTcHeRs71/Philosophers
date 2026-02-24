@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/24 18:56:50 by fducrot           #+#    #+#             */
-/*   Updated: 2026/02/24 19:00:13 by fducrot          ###   ########.ch       */
+/*   Created: 2026/02/24 19:01:57 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/24 19:02:01 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-static void clean_philo(t_philo *philo, t_data *data)
+static void	clean_philo(t_philo *philo, t_data *data)
 {
 	int	i;
-	
+
 	i = 0;
 	if (philo && data && data->forks)
 	{
