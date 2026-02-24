@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/24 18:27:22 by fducrot           #+#    #+#             */
-/*   Updated: 2026/02/24 18:27:22 by fducrot          ###   ########.ch       */
+/*   Created: 2026/02/24 18:56:50 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/24 18:57:18 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,23 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-static void	clean_philo(t_philo *philo)
+static void clean_philo(t_philo *philo, t_data *data)
 {
 	int	i;
-
+	
 	i = 0;
-	if (!philo || !philo->data)
-		return ;
-	while (i < philo->data->number_of_philosophers)
+	if (philo && data && data->forks)
 	{
-		pthread_mutex_destroy(&philo->data->forks[i]);
-		pthread_mutex_destroy(&philo[i].philo);
-		i++;
+		while (i < data->number_of_philosophers)
+		{
+			if (i <= data->flag_mutex_fork)
+				pthread_mutex_destroy(&data->forks[i]);
+			if (i <= data->flag_mutex_philo)
+				pthread_mutex_destroy(&philo[i].philo);
+			i++;
+		}
+		free(data->forks);
 	}
-	if (philo->data->forks)
-		free(philo->data->forks);
 	if (philo)
 		free(philo);
 }
@@ -60,7 +62,7 @@ void	clean_all(t_philo *philo, t_data *data)
 	if (data)
 		clean_data(data);
 	if (philo)
-		clean_philo(philo);
+		clean_philo(philo, data);
 }
 
 void	ft_error(char *msg, t_philo *philo, t_data *data)

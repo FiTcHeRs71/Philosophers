@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/24 18:16:53 by fducrot           #+#    #+#             */
-/*   Updated: 2026/02/24 18:17:38 by fducrot          ###   ########.ch       */
+/*   Created: 2026/02/24 18:55:33 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/24 18:56:39 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	init_philosophers(t_philo *philo, t_data *data, int nb_philo)
 		philo[i].status = -1;
 		philo[i].last_meat = get_current_time(philo);
 		pthread_mutex_init(&philo[i].philo, NULL);
+		data->flag_mutex_philo++;
 		philo[i].mutex_left_fork = &data->forks[i];
 		philo[i].mutex_right_fork = &data->forks[(i + 1)
 			% data->number_of_philosophers];
@@ -69,6 +70,7 @@ static void	init_data(t_data *data, t_philo *philo, char **args)
 	while (i < data->number_of_philosophers)
 	{
 		pthread_mutex_init(&data->forks[i], NULL);
+		data->flag_mutex_fork++;
 		i++;
 	}
 }
