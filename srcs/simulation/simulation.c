@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   simulation.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/24 18:05:15 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/24 18:05:15 by fducrot          ###   ########.ch       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/philo.h"
 
@@ -34,7 +45,7 @@ void	monitor_routine(t_data *data, t_philo *philo)
 		if (data->number_of_eat != -1
 			&& all_ate == data->number_of_philosophers)
 			return (update_end_flag(data));
-		ft_usleep(100, philo);
+		usleep(1000);
 	}
 }
 

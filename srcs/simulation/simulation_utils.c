@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   simulation_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/24 18:06:42 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/24 18:06:53 by fducrot          ###   ########.ch       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/philo.h"
 
@@ -18,23 +29,16 @@ int	check_simulation_end(t_data *data)
 	return (status);
 }
 
-
 int	ft_usleep(int milliseconds, t_philo *philo)
 {
-	int	start;
+	long long	start;
 
 	start = get_current_time(philo);
 	while ((get_current_time(philo) - start) < milliseconds)
 	{
-		pthread_mutex_lock(&philo->data->mutex_end);
-		if (philo->data->end_checker == ALIVE)
-			usleep(1000);
-		else
-		{
-			pthread_mutex_unlock(&philo->data->mutex_end);
+		if (check_simulation_end(philo->data) == DEAD)
 			break ;
-		}
-		pthread_mutex_unlock(&philo->data->mutex_end);
+		usleep(10);
 	}
 	return (0);
 }
@@ -54,13 +58,13 @@ void	print_status(t_philo *philo, char *status)
 {
 	long long	time_stamp;
 
-
 	time_stamp = get_current_time(philo) - philo->data->start_time;
 	pthread_mutex_lock(&philo->data->mutex_global_printer);
 	pthread_mutex_lock(&philo->data->mutex_end);
 	if (philo->data->end_checker == ALIVE)
 		printf("%lli %d %s\n", time_stamp, philo->id_philo, status);
-	else if (philo->data->end_checker == DEAD && ft_strncmp(status, "died", 5) == 0)
+	else if (philo->data->end_checker == DEAD
+		&& ft_strncmp(status, "died", 5) == 0)
 		printf("%lli %d %s\n", time_stamp, philo->id_philo, status);
 	pthread_mutex_unlock(&philo->data->mutex_end);
 	pthread_mutex_unlock(&philo->data->mutex_global_printer);

@@ -1,14 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_struct.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/24 18:11:19 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/24 18:11:19 by fducrot          ###   ########.ch       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PHILO_STRUCT_H
 
 # define PHILO_STRUCT_H
-
-typedef enum s_status
-{
-	EATING,
-	SLEAPING,
-	THINKING,
-}					t_status;
 
 typedef enum s_life
 {

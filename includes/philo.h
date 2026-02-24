@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/24 18:07:20 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/24 18:07:28 by fducrot          ###   ########.ch       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
@@ -51,7 +62,8 @@ int			check_simulation_end(t_data *data);
 void		update_end_flag(t_data *data);
 
 /* simulation_utils2.c*/
-int			eat_routine(t_philo *philo, pthread_mutex_t *first, pthread_mutex_t *second);
+int			eat_routine(t_philo *philo, pthread_mutex_t *first,
+				pthread_mutex_t *second);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t		get_current_time_usleep(void);
 #endif
