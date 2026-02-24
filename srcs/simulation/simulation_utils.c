@@ -18,9 +18,25 @@ int	check_simulation_end(t_data *data)
 	return (status);
 }
 
-void	ft_usleep(int time_in_ms)
+
+int	ft_usleep(int milliseconds, t_philo *philo)
 {
-	usleep(time_in_ms * 1000);
+	int	start;
+
+	start = get_current_time(philo);
+	while ((get_current_time(philo) - start) < milliseconds)
+	{
+		pthread_mutex_lock(&philo->data->mutex_end);
+		if (philo->data->end_checker == ALIVE)
+			ft_usleep(100, philo);
+		/*else
+		{
+			pthread_mutex_unlock(&philo->data->mutex_end);
+			break ;
+		}
+		pthread_mutex_unlock(&philo->data->mutex_end);*/
+	}
+	return (0);
 }
 
 long long	get_current_time(t_philo *philo)
@@ -38,8 +54,14 @@ void	print_status(t_philo *philo, char *status)
 {
 	long long	time_stamp;
 
+
 	time_stamp = get_current_time(philo) - philo->data->start_time;
 	pthread_mutex_lock(&philo->data->mutex_global_printer);
-	printf("%lli %d %s\n", time_stamp, philo->id_philo, status);
+	pthread_mutex_lock(&philo->data->mutex_end);
+	if (philo->data->end_checker == ALIVE)
+		printf("%lli %d %s\n", time_stamp, philo->id_philo, status);
+	else if (philo->data->end_checker == DEAD && ft_strncmp(status, "died", 5) == 0)
+		printf("%lli %d %s\n", time_stamp, philo->id_philo, status);
+	pthread_mutex_unlock(&philo->data->mutex_end);
 	pthread_mutex_unlock(&philo->data->mutex_global_printer);
 }

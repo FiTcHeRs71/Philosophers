@@ -45,12 +45,13 @@ void		start_simulation(t_data *data, t_philo *philo);
 
 /* simulation_utils.c*/
 void		print_status(t_philo *philo, char *status);
-void		ft_usleep(int time_in_ms);
+int			ft_usleep(int milliseconds, t_philo *philo);
 long long	get_current_time(t_philo *philo);
 int			check_simulation_end(t_data *data);
 void		update_end_flag(t_data *data);
 
 /* simulation_utils2.c*/
-int	eat_routine(t_philo *philo, pthread_mutex_t *first, pthread_mutex_t *second);
-
+int			eat_routine(t_philo *philo, pthread_mutex_t *first, pthread_mutex_t *second);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+size_t		get_current_time_usleep(void);
 #endif

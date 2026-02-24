@@ -34,7 +34,7 @@ void	monitor_routine(t_data *data, t_philo *philo)
 		if (data->number_of_eat != -1
 			&& all_ate == data->number_of_philosophers)
 			return (update_end_flag(data));
-		usleep(1000);
+		ft_usleep(100, philo);
 	}
 }
 
@@ -53,7 +53,7 @@ static void	*routine(void *arg)
 		second = philo->mutex_left_fork;
 	}
 	if (philo->id_philo % 2 == 0)
-		ft_usleep(20);
+		ft_usleep(20, philo);
 	while (1)
 	{
 		if (check_simulation_end(philo->data) == 1)
@@ -61,7 +61,7 @@ static void	*routine(void *arg)
 		if (eat_routine(philo, first, second) == 1)
 			break ;
 		print_status(philo, "is sleeping");
-		ft_usleep(philo->data->time_to_sleep);
+		ft_usleep(philo->data->time_to_sleep, philo);
 		print_status(philo, "is thinking");
 	}
 	return (NULL);

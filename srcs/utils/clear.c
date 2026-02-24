@@ -30,8 +30,10 @@ static void	clean_data(t_data *data)
 
 void	clean_all(t_philo *philo, t_data *data)
 {
-	clean_data(data);
-	clean_philo(philo);
+	if (data)
+		clean_data(data);
+	if (philo)
+		clean_philo(philo);
 }
 
 void	ft_error(char *msg, t_philo *philo)
