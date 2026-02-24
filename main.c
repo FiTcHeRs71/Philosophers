@@ -6,7 +6,7 @@
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 18:23:03 by fducrot           #+#    #+#             */
-/*   Updated: 2026/02/24 18:23:08 by fducrot          ###   ########.ch       */
+/*   Updated: 2026/02/24 18:29:18 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		printf("Wrong number of argument | Usage : "
+		ft_putstr_fd("Wrong number of argument | Usage : "
 			"number_of_philosophers, time_to_die time_to_eat, "
-			"time_to_sleep, number_of_times_each_philosopher_must_eat.\n");
+			"time_to_sleep, [number_of_times_each_philosopher_must_eat].\n", 2);
+		exit(EXIT_FAILURE);
 	}
 	return (0);
 }

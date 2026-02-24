@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/24 18:11:28 by fducrot           #+#    #+#             */
-/*   Updated: 2026/02/24 18:16:25 by fducrot          ###   ########.ch       */
+/*   Created: 2026/02/24 18:27:22 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/24 18:27:22 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/philo.h"
 
-static void	ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(char *s, int fd)
 {
 	size_t	i;
 
