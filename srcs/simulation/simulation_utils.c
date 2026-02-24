@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/24 18:06:42 by fducrot           #+#    #+#             */
-/*   Updated: 2026/02/24 18:06:53 by fducrot          ###   ########.ch       */
+/*   Created: 2026/02/24 18:23:34 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/24 18:23:37 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ long long	get_current_time(t_philo *philo)
 	long long		time;
 
 	if (gettimeofday(&current_time, NULL) == -1)
-		ft_error(TIME_SET, philo);
+		ft_error(TIME_SET, philo, philo->data);
 	time = (current_time.tv_sec * 1000) + (current_time.tv_usec / 1000);
 	return (time);
 }

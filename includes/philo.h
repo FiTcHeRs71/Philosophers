@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/24 18:07:20 by fducrot           #+#    #+#             */
-/*   Updated: 2026/02/24 18:07:28 by fducrot          ###   ########.ch       */
+/*   Created: 2026/02/24 18:16:36 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/24 18:16:41 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void		init_philo(char **args, t_philo *philo, t_data *data);
 void		*ft_calloc(size_t count, size_t size);
 
 /* clear.c */
-void		ft_error(char *msg, t_philo *philo);
+void		ft_error(char *msg, t_philo *philo, t_data *data);
 void		clean_all(t_philo *philo, t_data *data);
 
 /*=============== Simulation ===============*/

@@ -6,7 +6,7 @@
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 18:11:28 by fducrot           #+#    #+#             */
-/*   Updated: 2026/02/24 18:12:16 by fducrot          ###   ########.ch       */
+/*   Updated: 2026/02/24 18:16:25 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void	clean_all(t_philo *philo, t_data *data)
 		clean_philo(philo);
 }
 
-void	ft_error(char *msg, t_philo *philo)
+void	ft_error(char *msg, t_philo *philo, t_data *data)
 {
 	ft_putstr_fd(msg, 2);
-	clean_all(philo, philo->data);
+	clean_all(philo, data);
 	exit(EXIT_FAILURE);
 }

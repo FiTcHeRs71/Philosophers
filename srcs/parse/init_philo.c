@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 23/02/2026 16:51:50 by fducrot           #+#    #+#             */
-/*   Updated: 23/02/2026 19:02:41 by fducrot          ###   ########.ch       */
+/*   Created: 2026/02/24 18:16:53 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/24 18:17:38 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ static void	init_data(t_data *data, t_philo *philo, char **args)
 	i = 0;
 	data->number_of_philosophers = ft_atoi(args[1]);
 	if (data->number_of_philosophers <= 0)
-		ft_error(INVALID_NB_PHILO, philo);
+		ft_error(INVALID_NB_PHILO, philo, data);
 	update_args(data, args);
 	if (gettimeofday(&current_time, NULL) == -1)
-		ft_error(TIME_SET, philo);
+		ft_error(TIME_SET, philo, data);
 	data->start_time = (current_time.tv_sec * 1000) + (current_time.tv_usec
 			/ 1000);
 	pthread_mutex_init(&data->mutex_global_printer, NULL);
@@ -65,7 +65,7 @@ static void	init_data(t_data *data, t_philo *philo, char **args)
 	data->forks = ft_calloc(data->number_of_philosophers,
 			sizeof(pthread_mutex_t));
 	if (!data->forks)
-		ft_error(MALLOC, philo);
+		ft_error(MALLOC, philo, data);
 	while (i < data->number_of_philosophers)
 	{
 		pthread_mutex_init(&data->forks[i], NULL);
@@ -73,7 +73,7 @@ static void	init_data(t_data *data, t_philo *philo, char **args)
 	}
 }
 
-static void	checker_args(char **args, t_philo *philo)
+static void	checker_args(char **args, t_philo *philo, t_data *data)
 {
 	size_t	i;
 
@@ -81,14 +81,14 @@ static void	checker_args(char **args, t_philo *philo)
 	while (args[i])
 	{
 		if (!check_arg_is_digit(args[i]))
-			ft_error(INVALID_ARGS, philo);
+			ft_error(INVALID_ARGS, philo, data);
 		i++;
 	}
 }
 
 void	init_philo(char **args, t_philo *philo, t_data *data)
 {
-	checker_args(args, philo);
+	checker_args(args, philo, data);
 	init_data(data, philo, args);
 	init_philosophers(philo, data, data->number_of_philosophers);
 }

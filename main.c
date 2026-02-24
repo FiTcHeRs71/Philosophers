@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/24 18:05:02 by fducrot           #+#    #+#             */
-/*   Updated: 2026/02/24 18:05:02 by fducrot          ###   ########.ch       */
+/*   Created: 2026/02/24 18:23:03 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/24 18:23:08 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 		memset(&data, 0, sizeof(t_data));
 		philo = ft_calloc(ft_atoi(argv[1]), sizeof(t_philo));
 		if (!philo)
-			ft_error(MALLOC, philo);
+			ft_error(MALLOC, philo, &data);
 		init_philo(argv, philo, &data);
 		start_simulation(&data, philo);
 		clean_all(philo, &data);
