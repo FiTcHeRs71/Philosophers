@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/25 12:49:12 by fducrot           #+#    #+#             */
-/*   Updated: 2026/02/25 12:50:14 by fducrot          ###   ########.ch       */
+/*   Created: 2026/02/25 13:42:20 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/25 13:42:20 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static void	init_philosophers(t_philo *philo, t_data *data, int nb_philo)
 		philo[i].id_philo = i + 1;
 		philo[i].status = -1;
 		philo[i].last_meat = get_current_time(philo);
-		//init mutex
 		i++;
 	}
 }

@@ -49,7 +49,8 @@ void		ft_error(char *msg, t_philo *philo, t_data *data);
 void		start_simulation(t_data *data, t_philo *philo);
 
 /* simulation_utils.c*/
-
+void		print_status(t_philo *philo, char *status);
+int			ft_usleep(int milliseconds, t_philo *philo);
 
 /* simulation_utils2.c*/
 
