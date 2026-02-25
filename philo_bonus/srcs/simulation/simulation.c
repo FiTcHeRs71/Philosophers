@@ -1,7 +1,7 @@
 
 #include "../../includes/philo_bonus.h"
 
-static void	monitor_routine(void *arg)
+static void	*monitor_routine(void *arg)
 {
 	t_philo	*philo;
 
@@ -12,6 +12,7 @@ static void	monitor_routine(void *arg)
 		if (get_current_time(philo) - philo->last_meat > philo->data->time_to_die)
 		{
 			print_status(philo, "died");
+			philo->data->end_checker = DEAD;
 			sem_post(philo->data->sem_dead);
 			exit (1);
 		}
@@ -52,7 +53,7 @@ static void	routine(t_philo *philo)
 
 void	start_simulation(t_data *data, t_philo *philo)
 {
-	int	i,
+	int	i;
 
 	i = 0;
 	data->start_time = get_current_time(philo);

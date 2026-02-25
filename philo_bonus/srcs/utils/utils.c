@@ -48,3 +48,23 @@ long long	get_current_time(t_philo *philo)
 	time = (current_time.tv_sec * 1000) + (current_time.tv_usec / 1000);
 	return (time);
 }
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	unsigned char	*tmp1;
+	unsigned char	*tmp2;
+
+	tmp1 = (unsigned char *)s1;
+	tmp2 = (unsigned char *)s2;
+	while ((*tmp1 || *tmp2) && (n > 0))
+	{
+		if (*tmp1 != *tmp2)
+		{
+			return (*tmp1 - *tmp2);
+		}
+		tmp1++;
+		tmp2++;
+		n--;
+	}
+	return (0);
+}

@@ -15,8 +15,11 @@ SRCS_PARSE = $(addprefix $(SRCDIR)/parse/, \
 SRCS_UTILS = $(addprefix $(SRCDIR)/utils/, \
     utils.c clear.c)
 
+SRCS_SIMU = $(addprefix $(SRCDIR)/simulation/, \
+    simulation.c simulation_utils.c)
+
 # Combine all sources
-SRCS = $(SRCS_MAIN) $(SRCS_PARSE) $(SRCS_UTILS)
+SRCS = $(SRCS_MAIN) $(SRCS_PARSE) $(SRCS_UTILS) $(SRCS_SIMU)
 
 
 OBJS = $(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))

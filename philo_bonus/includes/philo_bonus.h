@@ -38,7 +38,7 @@ void		init_philo(char **args, t_philo *philo, t_data *data);
 void		*ft_calloc(size_t count, size_t size);
 void		ft_putstr_fd(char *s, int fd);
 long long	get_current_time(t_philo *philo);
-
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
 /* clear.c */
 void		ft_error(char *msg, t_philo *philo, t_data *data);
 
@@ -51,6 +51,7 @@ void		start_simulation(t_data *data, t_philo *philo);
 /* simulation_utils.c*/
 void		print_status(t_philo *philo, char *status);
 int			ft_usleep(int milliseconds, t_philo *philo);
+int			check_simulation_end(t_data *data);
 
 /* simulation_utils2.c*/
 
