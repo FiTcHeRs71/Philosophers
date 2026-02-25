@@ -21,6 +21,7 @@ typedef struct s_data
 	sem_t			*sem_forks;
 	sem_t			*sem_printer;
 	sem_t			*sem_dead;
+	sem_t			*sem_meal;
 }					t_data;
 
 typedef struct s_philo
@@ -30,7 +31,6 @@ typedef struct s_philo
 	int				meal_counter;
 	long long		last_meat;
 	pid_t			pid;
-	pthread_mutex_t	philo;
 	t_data			*data;
 }					t_philo;
 
