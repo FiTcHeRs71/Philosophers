@@ -12,7 +12,6 @@ static void	*monitor_routine(void *arg)
 		if (get_current_time(philo) - philo->last_meat > philo->data->time_to_die)
 		{
 			print_status(philo, "died");
-			philo->data->end_checker = DEAD;
 			sem_post(philo->data->sem_dead);
 			exit (1);
 		}
