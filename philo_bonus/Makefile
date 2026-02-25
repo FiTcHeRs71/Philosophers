@@ -13,7 +13,7 @@ SRCS_PARSE = $(addprefix $(SRCDIR)/parse/, \
     init_philo.c init_utils.c)
 
 SRCS_UTILS = $(addprefix $(SRCDIR)/utils/, \
-    utils.c)
+    utils.c clear.c)
 
 # Combine all sources
 SRCS = $(SRCS_MAIN) $(SRCS_PARSE) $(SRCS_UTILS)
@@ -45,7 +45,7 @@ $(OBJDIR)/%.o: %.c
 
 $(NAME): $(OBJS)
 	@echo "$(YELLOW)🔗 Linking $(NAME)...$(RESET)"
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 	@echo "$(GREEN)✓ $(NAME) created successfully!$(RESET)"
 
 clean:
@@ -73,5 +73,5 @@ helgrind: all
 
 norm:
 	@echo "$(YELLOW)📋 Checking norminette...$(RESET)"
-	@norminette $(SRCDIR) $(INCDIR) main.c 2>&1 | grep -v "OK!" || \
+	@norminette $(SRCDIR) $(INCDIR) main_bonus.c 2>&1 | grep -v "OK!" || \
 		echo "$(GREEN)✓ All files conform to norminette$(RESET)"

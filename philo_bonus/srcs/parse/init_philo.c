@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/24 19:01:12 by fducrot           #+#    #+#             */
-/*   Updated: 2026/02/24 19:01:21 by fducrot          ###   ########.ch       */
+/*   Created: 2026/02/25 11:59:19 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/25 12:03:11 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,11 @@ static void	init_data(t_data *data, t_philo *philo, char **args)
 	data->start_time = (current_time.tv_sec * 1000) + (current_time.tv_usec
 			/ 1000);
 	sem_unlink("/philo_forks");
+	sem_unlink("/philo_dead");
+	sem_unlink("/philo_printer");
+	data->sem_forks = sem_open("/philo_forks", O_CREAT, 0644, data->number_of_philosophers);
+	data->sem_dead = sem_open("/philo_dead", O_CREAT, 0644, data->number_of_philosophers);
+	data->sem_printer = sem_open("/philo_printer", O_CREAT, 0644, data->number_of_philosophers);
 }
 
 static void	checker_args(char **args, t_philo *philo, t_data *data)
