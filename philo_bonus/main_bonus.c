@@ -14,7 +14,7 @@ int	main(int argc, char **argv)
 			ft_error(MALLOC, philo, &data);
 		init_philo(argv, philo, &data);
 		start_simulation(&data, philo);
-		/*clean_all(philo, &data);*/
+		clean_all(philo, &data);
 	}
 	else
 	{

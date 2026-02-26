@@ -15,6 +15,13 @@ static void	*monitor_routine(void *arg)
 			sem_post(philo->data->sem_dead);
 			exit (1);
 		}
+		if (philo->meal_counter >= philo->data->number_of_eat)
+		{
+			sem_post(philo->data->sem_forks);
+			sem_post(philo->data->sem_forks);
+			sem_post(philo->data->sem_meal);
+			exit (0);
+		}
 		sem_post(philo->data->sem_meal);
 		usleep(1000);
 	}

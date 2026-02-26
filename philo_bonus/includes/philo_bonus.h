@@ -41,7 +41,7 @@ long long	get_current_time(t_philo *philo);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 /* clear.c */
 void		ft_error(char *msg, t_philo *philo, t_data *data);
-
+void		clean_all(t_philo *philo, t_data *data);
 
 /*=============== Simulation ===============*/
 
