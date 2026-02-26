@@ -1,6 +1,23 @@
 
 #include "../../includes/philo_bonus.h"
 
+static void	*wait_all_philos(void *arg)
+{
+	t_data	*data;
+	int		i;
+	int		status;
+
+	data = (t_data *)arg;
+	i = 0;
+	while (i < data->number_of_philosophers)
+	{
+		waitpid(data->philo[i].pid, &status, 0); 
+		i++;
+	}
+	sem_post(data->sem_dead); 
+	return (NULL);
+}
+
 static void	*monitor_routine(void *arg)
 {
 	t_philo	*philo;
@@ -11,16 +28,10 @@ static void	*monitor_routine(void *arg)
 		sem_wait(philo->data->sem_meal);
 		if (get_current_time(philo) - philo->last_meat > philo->data->time_to_die)
 		{
-			print_status(philo, "died");
+			sem_wait(philo->data->sem_printer);
+			printf("%lli %d died\n", get_current_time(philo) - philo->data->start_time, philo->id_philo);
 			sem_post(philo->data->sem_dead);
 			exit (1);
-		}
-		if (philo->meal_counter >= philo->data->number_of_eat)
-		{
-			sem_post(philo->data->sem_forks);
-			sem_post(philo->data->sem_forks);
-			sem_post(philo->data->sem_meal);
-			exit (0);
 		}
 		sem_post(philo->data->sem_meal);
 		usleep(1000);
@@ -50,9 +61,11 @@ static void	routine(t_philo *philo)
 		ft_usleep(philo->data->time_to_eat, philo);
 		sem_post(philo->data->sem_forks);
 		sem_post(philo->data->sem_forks);
+		if (philo->data->number_of_eat != -1 && philo->meal_counter >= philo->data->number_of_eat)
+			break ;
 		print_status(philo, "is sleeping");
 		ft_usleep(philo->data->time_to_sleep, philo);
-		print_status(philo, "is_thiking");
+		print_status(philo, "is_thinking");
 	}
 	exit(0);
 }
@@ -60,14 +73,25 @@ static void	routine(t_philo *philo)
 void	start_simulation(t_data *data, t_philo *philo)
 {
 	int	i;
+	pthread_t	wait_thread;
 
 	i = 0;
 	data->start_time = get_current_time(philo);
+	data->philo = philo;
 	while (i < data->number_of_philosophers)
 	{
 		philo[i].pid = fork();
 		if (philo[i].pid == 0)
 			routine(&philo[i]);
+		i++;
+	}
+	pthread_create(&wait_thread, NULL, &wait_all_philos, data);
+	pthread_detach(wait_thread);
+	sem_wait(data->sem_dead);
+	i = 0;
+	while (i < data->number_of_philosophers)
+	{
+		kill(philo[i].pid, SIGKILL);
 		i++;
 	}
 }

@@ -3,6 +3,8 @@
 
 # define PHILO_STRUCT_BONUS_H
 
+typedef struct s_philo t_philo;
+
 typedef enum s_life
 {
 	ALIVE,
@@ -22,6 +24,7 @@ typedef struct s_data
 	sem_t			*sem_printer;
 	sem_t			*sem_dead;
 	sem_t			*sem_meal;
+	t_philo			*philo;
 }					t_data;
 
 typedef struct s_philo
