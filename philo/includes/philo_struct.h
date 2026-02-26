@@ -6,7 +6,7 @@
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 19:00:27 by fducrot           #+#    #+#             */
-/*   Updated: 2026/02/24 19:00:31 by fducrot          ###   ########.ch       */
+/*   Updated: 2026/02/26 16:47:23 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ typedef enum s_life
 {
 	ALIVE,
 	DEAD,
+	EATING,
 }					t_life;
 
 typedef struct s_data
