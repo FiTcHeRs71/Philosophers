@@ -1,5 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   simulation.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/27 17:42:47 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/27 17:43:14 by fducrot          ###   ########.ch       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/philo_bonus.h"
+
+static void	fork_routine(t_philo *philo)
+{
+	sem_wait(philo->data->sem_forks);
+	print_status(philo, "has taken a fork");
+	sem_wait(philo->data->sem_forks);
+	print_status(philo, "has taken a fork");
+}
 
 static void	*wait_all_philos(void *arg)
 {
@@ -11,10 +30,10 @@ static void	*wait_all_philos(void *arg)
 	i = 0;
 	while (i < data->number_of_philosophers)
 	{
-		waitpid(data->philo[i].pid, &status, 0); 
+		waitpid(data->philo[i].pid, &status, 0);
 		i++;
 	}
-	sem_post(data->sem_dead); 
+	sem_post(data->sem_dead);
 	return (NULL);
 }
 
@@ -22,19 +41,20 @@ static void	*monitor_routine(void *arg)
 {
 	t_philo	*philo;
 
-	philo = (t_philo*)arg;
+	philo = (t_philo *)arg;
 	while (true)
 	{
 		sem_wait(philo->data->sem_meal);
-		if (get_current_time(philo) - philo->last_meat > philo->data->time_to_die)
+		if (get_current_time(philo)
+			- philo->last_meat > philo->data->time_to_die)
 		{
-			sem_wait(philo->data->sem_printer);
-			printf("%lli %d died\n", get_current_time(philo)
-				- philo->data->start_time, philo->id_philo);
+			printer_death(philo);
 			sem_post(philo->data->sem_dead);
-			exit (1);
+			clean_all(philo->data->philo, philo->data);
+			exit(1);
 		}
-		if (philo->data->number_of_eat != -1 && philo->meal_counter >= philo->data->number_of_eat)
+		if (philo->data->number_of_eat != -1
+			&& philo->meal_counter >= philo->data->number_of_eat)
 		{
 			sem_post(philo->data->sem_meal);
 			break ;
@@ -55,31 +75,28 @@ static void	routine(t_philo *philo)
 		ft_usleep(20, philo);
 	while (true)
 	{
-		sem_wait(philo->data->sem_forks);
-		print_status(philo, "has taken a fork");
-		sem_wait(philo->data->sem_forks);
-		print_status(philo, "has taken a fork");
+		fork_routine(philo);
 		print_status(philo, "is eating");
 		sem_wait(philo->data->sem_meal);
 		philo->last_meat = get_current_time(philo);
 		philo->meal_counter++;
 		sem_post(philo->data->sem_meal);
 		ft_usleep(philo->data->time_to_eat, philo);
-		sem_post(philo->data->sem_forks);
-		sem_post(philo->data->sem_forks);
-		if (philo->data->number_of_eat != -1 && philo->meal_counter >= philo->data->number_of_eat)
+		put_fork_on_table(philo);
+		if (philo->data->number_of_eat != -1 && philo->meal_counter
+			>= philo->data->number_of_eat)
 			break ;
 		print_status(philo, "is sleeping");
 		ft_usleep(philo->data->time_to_sleep, philo);
 		print_status(philo, "is_thinking");
 	}
-	clean_all(philo, philo->data);
+	clean_all(philo->data->philo, philo->data);
 	exit(0);
 }
 
 void	start_simulation(t_data *data, t_philo *philo)
 {
-	int	i;
+	int			i;
 	pthread_t	wait_thread;
 
 	i = 0;

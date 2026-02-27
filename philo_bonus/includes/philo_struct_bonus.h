@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_struct_bonus.h                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/27 17:23:32 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/27 17:24:11 by fducrot          ###   ########.ch       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PHILO_STRUCT_BONUS_H
 
 # define PHILO_STRUCT_BONUS_H
 
-typedef struct s_philo t_philo;
+typedef struct s_philo	t_philo;
 
 typedef enum s_life
 {

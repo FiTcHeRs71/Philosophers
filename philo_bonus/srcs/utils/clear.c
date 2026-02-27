@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clear.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/27 17:28:37 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/27 17:28:37 by fducrot          ###   ########.ch       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/philo_bonus.h"
 
 void	clean_all(t_philo *philo, t_data *data)
@@ -20,7 +32,6 @@ void	clean_all(t_philo *philo, t_data *data)
 		free(philo);
 		philo = NULL;
 	}
-
 }
 
 void	ft_error(char *msg, t_philo *philo, t_data *data)

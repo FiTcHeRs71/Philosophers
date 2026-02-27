@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/27 17:42:18 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/27 17:42:27 by fducrot          ###   ########.ch       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PHILO_BONUS_H
 # define PHILO_BONUS_H
@@ -42,6 +53,8 @@ void		*ft_calloc(size_t count, size_t size);
 void		ft_putstr_fd(char *s, int fd);
 long long	get_current_time(t_philo *philo);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
+void		unlink_sem(void);
+
 /* clear.c */
 void		ft_error(char *msg, t_philo *philo, t_data *data);
 void		clean_all(t_philo *philo, t_data *data);
@@ -55,8 +68,7 @@ void		start_simulation(t_data *data, t_philo *philo);
 void		print_status(t_philo *philo, char *status);
 int			ft_usleep(int milliseconds, t_philo *philo);
 int			check_simulation_end(t_data *data);
-
-/* simulation_utils2.c*/
-
+void		printer_death(t_philo *philo);
+void		put_fork_on_table(t_philo *philo);
 
 #endif

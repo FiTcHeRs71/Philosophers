@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/24 18:05:28 by fducrot           #+#    #+#             */
-/*   Updated: 2026/02/24 18:05:28 by fducrot          ###   ########.ch       */
+/*   Created: 2026/02/27 17:40:01 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/27 17:40:07 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,12 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return (result * ngps);
+}
+
+void	unlink_sem(void)
+{
+	sem_unlink("/philo_forks");
+	sem_unlink("/philo_dead");
+	sem_unlink("/philo_printer");
+	sem_unlink("/philo_meal");
 }

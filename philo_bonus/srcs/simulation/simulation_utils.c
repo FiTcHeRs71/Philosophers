@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   simulation_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/27 17:43:23 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/27 17:43:23 by fducrot          ###   ########.ch       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/philo_bonus.h"
 
@@ -31,4 +42,17 @@ int	ft_usleep(int milliseconds, t_philo *philo)
 		usleep(500);
 	}
 	return (0);
+}
+
+void	printer_death(t_philo *philo)
+{
+	sem_wait(philo->data->sem_printer);
+	printf("%lli %d died\n", get_current_time(philo) - philo->data->start_time,
+		philo->id_philo);
+}
+
+void	put_fork_on_table(t_philo *philo)
+{
+	sem_post(philo->data->sem_forks);
+	sem_post(philo->data->sem_forks);
 }
