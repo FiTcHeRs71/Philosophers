@@ -29,7 +29,8 @@ static void	*monitor_routine(void *arg)
 		if (get_current_time(philo) - philo->last_meat > philo->data->time_to_die)
 		{
 			sem_wait(philo->data->sem_printer);
-			printf("%lli %d died\n", get_current_time(philo) - philo->data->start_time, philo->id_philo);
+			printf("%lli %d died\n", get_current_time(philo)
+				- philo->data->start_time, philo->id_philo);
 			sem_post(philo->data->sem_dead);
 			exit (1);
 		}

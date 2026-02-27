@@ -23,6 +23,7 @@
 # define INVALID_ARGS "Invalid argument,only digit between INT MIN and INT MAX."
 # define INVALID_NB_PHILO "Invalid number of philo"
 # define TIME_SET "Unable to get and set time start"
+# define SEM_EROR "Unable to set semaphore"
 
 /*=============== Parse ===============*/
 

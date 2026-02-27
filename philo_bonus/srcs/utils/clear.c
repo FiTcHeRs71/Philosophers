@@ -21,10 +21,10 @@ static void	clean_data(t_data *data)
 	if (!data)
 		return ;
 	sem_post(data->sem_dead);
-	sem_destroy(data->sem_dead);
-	sem_destroy(data->sem_forks);
-	sem_destroy(data->sem_meal);
-	sem_destroy(data->sem_printer);
+	sem_close(data->sem_dead);
+	sem_close(data->sem_forks);
+	sem_close(data->sem_meal);
+	sem_close(data->sem_printer);
 }
 
 void	clean_all(t_philo *philo, t_data *data)

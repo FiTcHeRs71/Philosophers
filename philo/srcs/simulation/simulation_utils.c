@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/24 18:23:34 by fducrot           #+#    #+#             */
-/*   Updated: 2026/02/24 18:23:37 by fducrot          ###   ########.ch       */
+/*   Created: 2026/02/27 13:20:49 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/27 13:20:49 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_usleep(int milliseconds, t_philo *philo)
 	{
 		if (check_simulation_end(philo->data) == DEAD)
 			break ;
-		usleep(10);
+		usleep(500);
 	}
 	return (0);
 }

@@ -28,7 +28,7 @@ int	ft_usleep(int milliseconds, t_philo *philo)
 	{
 		if (check_simulation_end(philo->data) == DEAD)
 			break ;
-		usleep(10);
+		usleep(500);
 	}
 	return (0);
 }
