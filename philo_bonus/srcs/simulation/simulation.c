@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fducrot <fducrot@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/27 17:42:47 by fducrot           #+#    #+#             */
-/*   Updated: 2026/02/27 17:43:14 by fducrot          ###   ########.ch       */
+/*   Created: 2026/02/27 17:47:23 by fducrot           #+#    #+#             */
+/*   Updated: 2026/02/27 17:47:42 by fducrot          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ void	start_simulation(t_data *data, t_philo *philo)
 		i++;
 	}
 	pthread_create(&wait_thread, NULL, &wait_all_philos, data);
-	pthread_detach(wait_thread);
 	sem_wait(data->sem_dead);
 	i = 0;
 	while (i < data->number_of_philosophers)
@@ -118,4 +117,5 @@ void	start_simulation(t_data *data, t_philo *philo)
 		kill(philo[i].pid, SIGKILL);
 		i++;
 	}
+	pthread_join(wait_thread, NULL);
 }
