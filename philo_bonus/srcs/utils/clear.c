@@ -14,8 +14,13 @@ void	clean_all(t_philo *philo, t_data *data)
 	sem_unlink("/philo_dead");
 	sem_unlink("/philo_printer");
 	sem_unlink("/philo_meal");
-	if (philo)
+	(void)philo;
+	if (philo && philo != NULL)
+	{
 		free(philo);
+		philo = NULL;
+	}
+
 }
 
 void	ft_error(char *msg, t_philo *philo, t_data *data)
