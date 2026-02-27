@@ -34,6 +34,11 @@ static void	*monitor_routine(void *arg)
 			sem_post(philo->data->sem_dead);
 			exit (1);
 		}
+		if (philo->data->number_of_eat != -1 && philo->meal_counter >= philo->data->number_of_eat)
+		{
+			sem_post(philo->data->sem_meal);
+			break ;
+		}
 		sem_post(philo->data->sem_meal);
 		usleep(1000);
 	}
@@ -68,6 +73,7 @@ static void	routine(t_philo *philo)
 		ft_usleep(philo->data->time_to_sleep, philo);
 		print_status(philo, "is_thinking");
 	}
+	clean_all(philo, philo->data);
 	exit(0);
 }
 

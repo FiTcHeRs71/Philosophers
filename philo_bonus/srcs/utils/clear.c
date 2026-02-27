@@ -1,38 +1,21 @@
 #include "../../includes/philo_bonus.h"
 
-static void	clean_philo(t_philo *philo, t_data *data)
-{
-	int	i;
-
-	i = 0;
-	if (philo && data)
-	{
-		while (i < data->number_of_philosophers)
-		{
-			i++;
-		}
-	}
-	if (philo)
-		free(philo);
-}
-
-static void	clean_data(t_data *data)
-{
-	if (!data)
-		return ;
-	sem_post(data->sem_dead);
-	sem_close(data->sem_dead);
-	sem_close(data->sem_forks);
-	sem_close(data->sem_meal);
-	sem_close(data->sem_printer);
-}
-
 void	clean_all(t_philo *philo, t_data *data)
 {
-	if (data)
-		clean_data(data);
+	if (data->sem_forks != SEM_FAILED)
+		sem_close(data->sem_forks);
+	if (data->sem_dead != SEM_FAILED)
+		sem_close(data->sem_dead);
+	if (data->sem_printer != SEM_FAILED)
+		sem_close(data->sem_printer);
+	if (data->sem_meal != SEM_FAILED)
+		sem_close(data->sem_meal);
+	sem_unlink("/philo_forks");
+	sem_unlink("/philo_dead");
+	sem_unlink("/philo_printer");
+	sem_unlink("/philo_meal");
 	if (philo)
-		clean_philo(philo, data);
+		free(philo);
 }
 
 void	ft_error(char *msg, t_philo *philo, t_data *data)
